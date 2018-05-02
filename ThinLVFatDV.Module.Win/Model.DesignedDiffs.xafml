@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="ThinLVFatDV.Module.BusinessObjects.ThinResult" DefaultListViewMasterDetailMode="ListViewAndDetailView" />
+  </BOModel>
+  <SchemaModules>
+    <SchemaModule Name="SystemModule" Version="17.2.7.0" IsNewNode="True" />
+    <SchemaModule Name="SystemWindowsFormsModule" Version="17.2.7.0" IsNewNode="True" />
+  </SchemaModules>
+</Application>
