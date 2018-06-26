@@ -2,6 +2,7 @@
 using System.Linq;
 using DevExpress.ExpressApp;
 using ThinLVFatDV.Module.BusinessObjects;
+using ThinLVFatDV.Module.BusinessObjects.NonPersistedObjects;
 using ThinLVFatDV.Module.Functions;
 
 namespace ThinLVFatDV.Module.Win.Controllers
@@ -40,7 +41,7 @@ namespace ThinLVFatDV.Module.Win.Controllers
             CreateCustomCurrentObjectDetailViewEventArgs e)
         {
             if (e.ListViewCurrentObject is ThinResult currentRec)
-                currentRec.FatResult = HandyFunctions.MakeFatResult(currentRec.Id, View.ObjectSpace);
+                currentRec.FatResults = HandyFunctions.MakeFatResults(currentRec.Id, View.ObjectSpace);
         }
 
 

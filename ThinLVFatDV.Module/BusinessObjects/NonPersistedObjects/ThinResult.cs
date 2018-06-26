@@ -1,10 +1,11 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 
-namespace ThinLVFatDV.Module.BusinessObjects
+namespace ThinLVFatDV.Module.BusinessObjects.NonPersistedObjects
 {
     [NavigationItem("Things")]
     [DomainComponent]
@@ -16,8 +17,8 @@ namespace ThinLVFatDV.Module.BusinessObjects
 
         public string ParentThingName { get; set; }
 
-        [Browsable(false)]
-        public virtual FatResult FatResult { get; set; }
+        [VisibleInDetailView(true)]
+        public virtual List<FatResult> FatResults { get; set; }
         public static ThinResult[] GetList()
         {
             using (var connect = new MyDbContext())
@@ -28,13 +29,13 @@ namespace ThinLVFatDV.Module.BusinessObjects
             }
         }
 
-        [VisibleInListView(false)]
-        [ModelDefault("RowCount", "4")]
-        public string Notes
-        {
-            get => FatResult?.Notes;
-            set => FatResult.Notes = value;
-        }
+        //[VisibleInListView(false)]
+        //[ModelDefault("RowCount", "4")]
+        //public string Notes
+        //{
+        //    get => FatResult?.Notes;
+        //    set => FatResult.Notes = value;
+        //}
     }
 
    

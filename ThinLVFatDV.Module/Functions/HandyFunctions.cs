@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using ThinLVFatDV.Module.BusinessObjects;
+using ThinLVFatDV.Module.BusinessObjects.NonPersistedObjects;
 
 namespace ThinLVFatDV.Module.Functions
-{
+{ 
     public class HandyFunctions
     {
         public static void AddPersistentOsToNonPersistentOs(XafApplication application, NonPersistentObjectSpace os, Type type)
@@ -20,29 +21,25 @@ namespace ThinLVFatDV.Module.Functions
             }
         }
 
-        public static FatResult MakeFatResult(int thingId, IObjectSpace nonPersistentObjectSpace)
+        public static List <FatResult> MakeFatResults(int thingId, IObjectSpace nonPersistentObjectSpace)
         {
-            var persistentOs = GetPersistentObjectSpace(nonPersistentObjectSpace);
-            var fatResult = new FatResult {Thing = new Thing { Id = thingId }};
-            PopulateFatResult(fatResult, persistentOs);
-            return fatResult;
-        }
-
-        private static void PopulateFatResult(FatResult fatResult, IObjectSpace os)
-        {
-            fatResult.Thing = os.GetObject(fatResult.Thing);
-            var criteria = $"ThingId ={fatResult.Thing.Id}";
-            var details = os.GetObjects<Detail>(CriteriaOperator.Parse(criteria));
-            var sb = new StringBuilder();
+            var os = GetPersistentObjectSpace(nonPersistentObjectSpace);
+            var criteria = $"ThingId ={thingId}";
+            var details = os.GetObjects<Detail>(CriteriaOperator.Parse(criteria)).ToList();
+            var results = new List<FatResult>();
             foreach (var detail in details)
             {
-                sb.AppendLine($"[Point 1] {detail.Point1} [Point 2] {detail.Point2}");
+                var fatResult = new FatResult {Notes = $"1) {detail.Point1}, 2) {detail.Point2}"};
+                results.Add(fatResult);
             }
 
-            fatResult.Notes = sb.ToString();
+            return results;
+           
         }
 
-        
+     
+
+       
 
         private static IObjectSpace GetPersistentObjectSpace(IObjectSpace os)
         {

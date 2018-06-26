@@ -1,6 +1,4 @@
-﻿using DevExpress.ExpressApp.DC;
-
-namespace ThinLVFatDV.Module.BusinessObjects
+﻿namespace ThinLVFatDV.Module.BusinessObjects.NonPersistedObjects
 {
     
     public class FatResult

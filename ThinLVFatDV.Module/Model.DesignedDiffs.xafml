@@ -1,5 +1,9 @@
-﻿<?xml version="1.0" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Application Title="ThinLVFatDV">
-  <Views>
-  </Views>
+  <BOModel>
+    <Class Name="ThinLVFatDV.Module.BusinessObjects.NonPersistedObjects.ThinResult" DefaultListViewMasterDetailMode="ListViewAndDetailView" />
+  </BOModel>
+  <SchemaModules>
+    <SchemaModule Name="SystemModule" Version="18.1.4.0" IsNewNode="True" />
+  </SchemaModules>
 </Application>
