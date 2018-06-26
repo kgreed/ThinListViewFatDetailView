@@ -23,11 +23,8 @@ namespace ThinLVFatDV.Module.Functions
         public static FatResult MakeFatResult(int thingId, IObjectSpace nonPersistentObjectSpace)
         {
             var persistentOs = GetPersistentObjectSpace(nonPersistentObjectSpace);
-             
             var fatResult = new FatResult {Thing = new Thing { Id = thingId }};
-
             PopulateFatResult(fatResult, persistentOs);
-           
             return fatResult;
         }
 
@@ -45,10 +42,7 @@ namespace ThinLVFatDV.Module.Functions
             fatResult.Notes = sb.ToString();
         }
 
-        private static Thing GetThing(int thingId, object persistentOs)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         private static IObjectSpace GetPersistentObjectSpace(IObjectSpace os)
         {

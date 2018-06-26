@@ -11,7 +11,6 @@ namespace ThinLVFatDV.Module.BusinessObjects
         [Key]
         public int Id { get; set; }
         public string ThingName { get; set; }
-
         public int ParentId { get; set; }
     }
 }
