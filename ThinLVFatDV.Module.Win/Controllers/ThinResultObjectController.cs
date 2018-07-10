@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using DevExpress.ExpressApp;
 using ThinLVFatDV.Module.BusinessObjects;
@@ -7,13 +8,21 @@ using ThinLVFatDV.Module.Functions;
 
 namespace ThinLVFatDV.Module.Win.Controllers
 {
-    // For more typical usage scenarios, be sure to check out https://documentation.devexpress.com/eXpressAppFramework/clsDevExpressExpressAppViewControllertopic.aspx.
-    public partial class ThinResultObjectController : ObjectViewController<ListView, ThinResult>
+     public partial class ThinResultObjectController : ObjectViewController<ListView, ThinResult>
     {
+       
+       
         public ThinResultObjectController()
         {
             InitializeComponent();
             TargetObjectType = typeof(ThinResult);
+           
+        }
+
+        protected override void OnViewControlsCreated()
+        {
+            base.OnViewControlsCreated();
+            ObjectSpace.Refresh();
         }
 
         protected override void OnActivated()
@@ -22,18 +31,18 @@ namespace ThinLVFatDV.Module.Win.Controllers
 
 
             var os = (NonPersistentObjectSpace) ObjectSpace;
+             HandyFunctions.AddPersistentOsToNonPersistentOs(Application, os, typeof(Thing));
             os.ObjectsGetting += os_ObjectsGetting;
-            HandyFunctions.AddPersistentOsToNonPersistentOs(Application, os, typeof(Thing));
-            View.CollectionSource.CriteriaApplied += CollectionSource_CriteriaApplied;
-
+          //  View.CollectionSource.CriteriaApplied += CollectionSource_CriteriaApplied;
             View.CreateCustomCurrentObjectDetailView += View_CreateCustomCurrentObjectDetailView;
-            ObjectSpace.Refresh();
+            
         }
 
 
         private void os_ObjectsGetting(object sender, ObjectsGettingEventArgs e)
         {
-            e.Objects = ThinResult.GetList().ToList();
+                e.Objects = ThinResult.GetList().ToList();
+                Console.WriteLine(e.Objects.Count);
         }
 
 
@@ -49,16 +58,19 @@ namespace ThinLVFatDV.Module.Win.Controllers
         {
             var os = (NonPersistentObjectSpace) ObjectSpace;
             os.ObjectsGetting -= os_ObjectsGetting;
-            View.CollectionSource.CriteriaApplied -= CollectionSource_CriteriaApplied;
+           // View.CollectionSource.CriteriaApplied -= CollectionSource_CriteriaApplied;
             base.OnDeactivated();
 
             View.CreateCustomCurrentObjectDetailView -= View_CreateCustomCurrentObjectDetailView;
             HandyFunctions.DisposeAdditionalPersistentObjectSpace(Application, os);
         }
 
-        private void CollectionSource_CriteriaApplied(object sender, EventArgs e)
-        {
-            ObjectSpace.Refresh();
-        }
+        //private void CollectionSource_CriteriaApplied(object sender, EventArgs e)
+        //{
+        //     // why is this recursive to 1 level ?
+
+        //     //ObjectSpace.Refresh(); 
+            
+        //}
     }
 }
